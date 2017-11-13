@@ -14,10 +14,12 @@ window.org_vaadin_imagecompare_ImageCompare = function () {
 
     var left = document.createElement('img')
     left.setAttribute('src', state.left)
+    left.classList.add('comparison-image')
     container.appendChild(left)
 
     var right = document.createElement('img')
     right.setAttribute('src', state.right)
+    right.classList.add('comparison-image')
     container.appendChild(right)
 
     new ImageComparison({
