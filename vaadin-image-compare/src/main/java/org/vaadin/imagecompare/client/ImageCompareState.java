@@ -10,12 +10,10 @@ import com.vaadin.shared.ui.JavaScriptComponentState;
  */
 public class ImageCompareState extends JavaScriptComponentState {
 
-    public String left;
+    public ImageHolder left;
 
-    public String leftLabel;
+    public ImageHolder right;
 
-    public String right;
-
-    public String rightLabel;
+    public String repaint;
 
 }

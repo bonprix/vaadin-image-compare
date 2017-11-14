@@ -6,14 +6,13 @@
  * Example https://m-ulyanov.github.io/image-comparison/
  */
 
-(function(root){
+(function (root) {
 
   const defaultOptions = {
     container: null,
     startPosition: 50,
     data: null
-  };
-
+  }
 
   /**
    * Constructor
@@ -22,13 +21,13 @@
   function ImageComparison (options) {
     this.options = utils.extend({}, [defaultOptions, options], {
       clearEmpty: true
-    });
-    this.container = this.options.container;
-    this.images = [this.options.data[0].image, this.options.data[1].image];
-    this.labels = [this.options.data[0].label, this.options.data[1].label];
-    this._animateInterval = null;
-    this._comparisonSeparator = null;
-    this._items = [];
+    })
+    this.container = this.options.container
+    this.images = [this.options.data[0].image, this.options.data[1].image]
+    this.labels = [this.options.data[0].label, this.options.data[1].label]
+    this._animateInterval = null
+    this._comparisonSeparator = null
+    this._items = []
 
     if (this.container == null) {
       console.error('Container element not found!')
@@ -38,86 +37,84 @@
       console.error('Need two images!')
     }
 
-    this._build();
-    this._setEvents();
+    this._build()
+    this._setEvents()
   }
-
 
   /**
    * Build HTML structure
    * @private
    */
   ImageComparison.prototype._build = function () {
-    this.options.container.classList.add('comparison-widget');
+    this.options.container.classList.add('comparison-widget')
     for (var i = 0; i < 2; i++) {
-      var item = document.createElement('div');
-      item.classList.add('comparison-item');
+      var item = document.createElement('div')
+      item.classList.add('comparison-item')
 
-      var content = document.createElement('div');
-      content.classList.add('comparison-item__content');
+      var content = document.createElement('div')
+      content.classList.add('comparison-item__content')
       if (this.labels[i]) {
-        content.innerHTML = '<div class="comparison-item__label">' + this.labels[i] + '</div>';
+        content.innerHTML = '<div class="comparison-item__label">' + this.labels[i] + '</div>'
       }
-      this.images[i].classList.add('comparison-item__image');
-      content.appendChild(this.images[i]);
-      item.appendChild(content);
+      this.images[i].classList.add('comparison-item__image')
+      content.appendChild(this.images[i])
+      item.appendChild(content)
 
       if (i === 0) {
-        item.classList.add('comparison-item--first');
-        item.style.width = this.options.startPosition + '%';
-        this._comparisonSeparator = document.createElement('div');
-        this._comparisonSeparator.classList.add('comparison-separator');
-        this._comparisonSeparator.innerHTML = '<div class="comparison-control"><div class="comparison-control__mask"></div></div>';
-        item.appendChild(this._comparisonSeparator);
+        item.classList.add('comparison-item--first')
+        item.style.width = this.options.startPosition + '%'
+        this._comparisonSeparator = document.createElement('div')
+        this._comparisonSeparator.classList.add('comparison-separator')
+        this._comparisonSeparator.innerHTML = '<div class="comparison-control"><div class="comparison-control__mask"></div></div>'
+        item.appendChild(this._comparisonSeparator)
       }
 
-      this._items.push(item);
-      this.container.appendChild(item);
+      this._items.push(item)
+      this.container.appendChild(item)
     }
 
-  };
-
+  }
 
   /**
    * Set need DOM events
    * @private
    */
   ImageComparison.prototype._setEvents = function () {
-    var comparison = this;
+    var comparison = this
 
     comparison.container.addEventListener('click', function (event) {
-      comparison._calcPosition(event);
-    });
+      comparison._calcPosition(event)
+    })
 
     utils.setMultiEvents(comparison._comparisonSeparator, ['mousedown', 'touchstart'], function () {
-      comparison._comparisonSeparator.classList.add('actived');
-    });
+      comparison._comparisonSeparator.classList.add('actived')
+    })
 
     utils.setMultiEvents(document.body, ['mouseup', 'touchend'], function () {
-      comparison._comparisonSeparator.classList.remove('actived');
-    });
+      comparison._comparisonSeparator.classList.remove('actived')
+    })
 
     utils.setMultiEvents(document.body, ['mousemove', 'touchmove'], function (event) {
       if (comparison._comparisonSeparator.classList.contains('actived')) {
-        comparison._calcPosition(event);
+        comparison._calcPosition(event)
         if (document['selection']) {
-          document['selection'].empty();
+          document['selection'].empty()
         }
       }
-    });
+    })
 
     utils.setMultiEvents(window, ['resize', 'load'], function () {
-      comparison._setImageSize();
-    });
+      comparison._setImageSize()
+    })
+    comparison._setImageSize()
 
     for (var i = 0; i < comparison.images.length; i++) {
       comparison.images[i].addEventListener('dragstart', function (e) {
-        e.preventDefault();
-      });
+        e.preventDefault()
+      })
     }
 
-  };
-
+  }
 
   /**
    * Calc current position (click, touch or move)
@@ -125,20 +122,19 @@
    * @private
    */
   ImageComparison.prototype._calcPosition = function (event) {
-    var containerCoords = this.container.getBoundingClientRect();
-    var containerWidth = containerCoords.width;
+    var containerCoords = this.container.getBoundingClientRect()
+    var containerWidth = containerCoords.width
     /** @namespace event.touches */
-    var horizontalPositionForElement = (event.clientX || event.touches[0].pageX) - containerCoords.left;
-    var positionInPercent = horizontalPositionForElement * 100 / containerWidth;
+    var horizontalPositionForElement = (event.clientX || event.touches[0].pageX) - containerCoords.left
+    var positionInPercent = horizontalPositionForElement * 100 / containerWidth
     if (positionInPercent > 100) {
-      positionInPercent = 100;
+      positionInPercent = 100
     }
     else if (positionInPercent < 0) {
-      positionInPercent = 0;
+      positionInPercent = 0
     }
-    this._controllerPosition(positionInPercent.toFixed(2), event.type);
-  };
-
+    this._controllerPosition(positionInPercent.toFixed(2), event.type)
+  }
 
   /**
    * Controller position
@@ -149,13 +145,12 @@
   ImageComparison.prototype._controllerPosition = function (positionInPercent, eventType) {
     switch (eventType) {
       case 'click':
-        this._setPositionWithAnimate(positionInPercent);
-        break;
+        this._setPositionWithAnimate(positionInPercent)
+        break
       default :
-        this._updatePosition(positionInPercent);
+        this._updatePosition(positionInPercent)
     }
-  };
-
+  }
 
   /**
    * Set position with animate
@@ -164,50 +159,47 @@
    * @private
    */
   ImageComparison.prototype._setPositionWithAnimate = function (newPositionInPercent) {
-    var comparison = this;
-    var currentPositionInPercent = parseFloat(comparison._items[0].style.width);
-    clearInterval(comparison._animateInterval);
+    var comparison = this
+    var currentPositionInPercent = parseFloat(comparison._items[0].style.width)
+    clearInterval(comparison._animateInterval)
 
     if (newPositionInPercent == currentPositionInPercent) {
-      return false;
+      return false
     }
     else if (currentPositionInPercent > newPositionInPercent) {
-      decrementPosition();
+      decrementPosition()
     }
     else {
-      incrementPosition();
+      incrementPosition()
     }
-
 
     // Support animate functions
-    function incrementPosition() {
+    function incrementPosition () {
       comparison._animateInterval = setInterval(function () {
-        currentPositionInPercent++;
-        comparison._updatePosition(currentPositionInPercent);
+        currentPositionInPercent++
+        comparison._updatePosition(currentPositionInPercent)
         if (currentPositionInPercent >= newPositionInPercent) {
-          setFinalPositionAndClearInterval();
+          setFinalPositionAndClearInterval()
         }
-      }, 10);
+      }, 10)
     }
 
-    function decrementPosition() {
+    function decrementPosition () {
       comparison._animateInterval = setInterval(function () {
-        currentPositionInPercent--;
-        comparison._updatePosition(currentPositionInPercent);
+        currentPositionInPercent--
+        comparison._updatePosition(currentPositionInPercent)
         if (currentPositionInPercent <= newPositionInPercent) {
-          setFinalPositionAndClearInterval();
+          setFinalPositionAndClearInterval()
         }
-      }, 10);
+      }, 10)
     }
 
-    function setFinalPositionAndClearInterval() {
-      comparison._updatePosition(newPositionInPercent);
-      clearInterval(comparison._animateInterval);
+    function setFinalPositionAndClearInterval () {
+      comparison._updatePosition(newPositionInPercent)
+      clearInterval(comparison._animateInterval)
     }
 
-
-  };
-
+  }
 
   /**
    * Set position item[0]
@@ -215,18 +207,16 @@
    * @private
    */
   ImageComparison.prototype._updatePosition = function (percent) {
-    this._items[0].style.width = percent + '%';
-  };
-
+    this._items[0].style.width = percent + '%'
+  }
 
   /**
    * Set the width of image that has a position absolute
    * @private
    */
   ImageComparison.prototype._setImageSize = function () {
-    this.images[0].style.width = this.container.offsetWidth + 'px';
-  };
-
+    this.images[0].style.width = this.container.offsetWidth + 'px'
+  }
 
   /**
    * Utils Methods
@@ -245,36 +235,35 @@
 
       for (var object in objects) {
         if (objects.hasOwnProperty(object)) {
-          recursiveMerge(target, objects[object]);
+          recursiveMerge(target, objects[object])
         }
       }
 
-      function recursiveMerge(target, object) {
+      function recursiveMerge (target, object) {
         for (var property in object) {
           if (object.hasOwnProperty(property)) {
-            var current = object[property];
+            var current = object[property]
             if (utils.getConstructor(current) === 'Object') {
               if (!target[property]) {
-                target[property] = {};
+                target[property] = {}
               }
-              recursiveMerge(target[property], current);
+              recursiveMerge(target[property], current)
             }
             else {
               // clearEmpty
               if (options.clearEmpty) {
                 if (current == null) {
-                  continue;
+                  continue
                 }
               }
-              target[property] = current;
+              target[property] = current
             }
           }
         }
       }
 
-      return target;
+      return target
     },
-
 
     /**
      * Set Multi addEventListener
@@ -284,10 +273,9 @@
      */
     setMultiEvents: function (element, events, func) {
       for (var i = 0; i < events.length; i++) {
-        element.addEventListener(events[i], func);
+        element.addEventListener(events[i], func)
       }
     },
-
 
     /**
      * Get object constructor
@@ -295,20 +283,19 @@
      * @returns {string}
      */
     getConstructor: function (object) {
-      return Object.prototype.toString.call(object).slice(8, -1);
+      return Object.prototype.toString.call(object)
+                   .slice(8, -1)
     }
-  };
-
+  }
 
   if (typeof define === 'function' && define.amd) {
     define('ImageComparison', [], function () {
-      return ImageComparison;
-    });
+      return ImageComparison
+    })
   }
   else {
-    root.ImageComparison = ImageComparison;
+    root.ImageComparison = ImageComparison
   }
 
-
-}(this));
+}(this))
 
