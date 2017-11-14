@@ -2,6 +2,12 @@ package org.vaadin.imagecompare.client;
 
 import java.io.Serializable;
 
+/**
+ * Holds Image url and label
+ *
+ * @author Marten Prieß (http://www.rocketbase.io)
+ * @version 1.0
+ */
 public class ImageHolder implements Serializable {
 
     private String url;

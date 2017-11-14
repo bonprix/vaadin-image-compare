@@ -9,7 +9,7 @@ import org.vaadin.imagecompare.client.ImageHolder;
 import java.util.Date;
 
 /**
- * Vaadin wrapper for the JavaScript Plugin SimpleMDE (https://github.com/sparksuite/simplemde-markdown-editor)<br>
+ * Vaadin wrapper for the JavaScript Plugin ImageComparison (https://github.com/M-Ulyanov/ImageComparison/)<br>
  *
  * @author Marten Prieß (http://www.rocketbase.io)
  * @version 1.0
@@ -47,6 +47,9 @@ public class ImageCompare extends AbstractJavaScriptComponent {
         getState().right = right;
     }
 
+    /**
+     * repaint component useful in case of window-resize...
+     */
     public void repaint() {
         getState().repaint = new Date().toString();
     }

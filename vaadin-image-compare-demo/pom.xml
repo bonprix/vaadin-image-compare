@@ -22,7 +22,7 @@
 
     <properties>
         <start-class>org.vaadin.imagecompare.demo.Application</start-class>
-        <spring.boot.version>1.5.3.RELEASE</spring.boot.version>
+        <spring.boot.version>1.5.7.RELEASE</spring.boot.version>
         <!-- Important: Add the main class of your project -->
     </properties>
 

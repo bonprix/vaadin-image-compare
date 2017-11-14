@@ -29,7 +29,7 @@
 
         <!-- MANIFEST settings -->
         <Implementation-Version>${project.version}</Implementation-Version>
-        <Implementation-Title>SimpleMDE</Implementation-Title>
+        <Implementation-Title>ImageCompare</Implementation-Title>
         <Implementation-Vendor>Marten Prieß</Implementation-Vendor>
         <Vaadin-License-Title>The MIT License (MIT)</Vaadin-License-Title>
         <Vaadin-Addon>${project.artifactId}-${project.version}.jar</Vaadin-Addon>
