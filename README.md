@@ -1,7 +1,34 @@
 Vaadin Image Compare
 ==============
 
-...
+A simple Image Comparison. It's based on the JavaScript Plugin [ImageComparison](https://github.com/M-Ulyanov/ImageComparison/)
+
+![screenshot](assets/screenshot.png)
+
+Workflow
+========
+
+Add the dependency to your pom. You don't neet to compire GWT because it's an JavaScript addon without use of GWT...
+
+```xml
+<dependency>
+    <groupId>org.vaadin.addons</groupId>
+    <artifactId>vaadin-image-compare</artifactId>
+    <version>${vaadin-image-compare-version}</version>
+</dependency>
+```
+
+Details to the addon you can find on [Vaadin](https://vaadin.com/directory/component/imagecompare)
+
+Usage
+========
+
+Simple place the component to your Layout. It will fit within the available area. You don't need to resize images...
+
+```java
+new ImageCompare(new ImageHolder("./VAADIN/sample/cat-1.jpg", "sweet with colors"),
+                new ImageHolder("./VAADIN/sample/cat-1-bw.jpg", "black white"))
+```
 
 
 The MIT License (MIT)
