@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>vaadin-image-compare-root</artifactId>
         <groupId>org.vaadin.addons</groupId>
@@ -21,7 +22,7 @@
 
     <properties>
         <start-class>org.vaadin.imagecompare.demo.Application</start-class>
-        <spring.boot.version>1.5.7.RELEASE</spring.boot.version>
+        <spring.boot.version>2.0.5.RELEASE</spring.boot.version>
         <!-- Important: Add the main class of your project -->
     </properties>
 
@@ -51,7 +52,7 @@
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-spring-boot-starter</artifactId>
-            <version>1.2.0</version>
+            <version>3.1.0</version>
         </dependency>
 
         <dependency>
@@ -63,7 +64,7 @@
         <dependency>
             <groupId>org.vaadin</groupId>
             <artifactId>viritin</artifactId>
-            <version>1.61</version>
+            <version>2.7</version>
         </dependency>
     </dependencies>
 
@@ -97,32 +98,6 @@
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>unpack</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.vaadin.addons</groupId>
-                                    <artifactId>vaadin-simple-mde</artifactId>
-                                    <version>${version}</version>
-                                    <type>jar</type>
-                                    <includes>**/sliderpanel/components/*.scss</includes>
-                                    <outputDirectory>${basedir}/src/main/resources</outputDirectory>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
 
             <plugin>
